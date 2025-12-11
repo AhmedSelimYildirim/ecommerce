@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"your_project/config"
+)
 
 func main() {
-	fmt.Println("Ecommerce API Running!")
+	cfg := config.LoadConfig()
+	fmt.Println("Config yüklendi:", cfg.AppPort)
 }
