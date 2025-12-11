@@ -9,9 +9,8 @@ RUN go mod download
 
 # Tüm projeyi kopyala
 COPY . .
+RUN go build -o server .
 
-# Build
-RUN go build -o server ./main.go
 
 # Final image
 FROM debian:bookworm-slim
