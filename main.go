@@ -19,25 +19,28 @@ func main() {
 	app := fiber.New()
 
 	// DB bağlantısı
-	db := pg.NewPostgresDB(cfg)
+	db := pg.NewPostgresDB(cfg) // *sql.DB döndürmeli
 
 	// Repository oluştur
 	userRepo := pg.NewUserRepo(db)
 	productRepo := pg.NewProductRepo(db)
 	cartRepo := pg.NewCartRepo(db)
+	orderRepo := pg.NewOrderRepo(db)
 
 	// Usecase oluştur
 	userUC := usecase.NewUserUsecase(userRepo, cfg.JWTSecret, cfg.JWTExpireHours)
 	productUC := usecase.NewProductUsecase(productRepo)
 	cartUC := usecase.NewCartUsecase(cartRepo)
+	orderUC := usecase.NewOrderUsecase(orderRepo)
 
 	// Handler oluştur
 	userHandler := http.NewUserHandler(userUC)
 	productHandler := http.NewProductHandler(productUC)
 	cartHandler := http.NewCartHandler(cartUC)
+	orderHandler := http.NewOrderHandler(orderUC)
 
 	// Router’ları kur
-	SetupRouter(app, cfg, userHandler, productHandler, cartHandler)
+	SetupRouter(app, cfg, userHandler, productHandler, cartHandler, orderHandler)
 
 	// Server başlat
 	log.Fatal(app.Listen(":" + cfg.AppPort))
