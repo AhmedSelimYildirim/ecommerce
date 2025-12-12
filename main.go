@@ -19,7 +19,7 @@ func main() {
 	app := fiber.New()
 
 	// DB bağlantısı
-	db := pg.NewPostgresDB(cfg) // *sql.DB döndürmeli
+	db := pg.NewPostgresDB(cfg)
 
 	// Repository oluştur
 	userRepo := pg.NewUserRepo(db)

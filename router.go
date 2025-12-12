@@ -34,7 +34,7 @@ func SetupRouter(
 
 	// Order routes
 	orderRoutes := api.Group("/orders", middleware.JWTMiddleware(cfg.JWTSecret))
-	orderRoutes.Get("/", orderHandler.GetUserOrders) // Düzeltilmiş fonksiyon ismi
+	orderRoutes.Get("/", orderHandler.GetUserOrders)
 	orderRoutes.Post("/", orderHandler.CreateOrder)
 
 	// Product routes
@@ -61,4 +61,4 @@ func SetupRouter(
 		}
 		return productHandler.DeleteProduct(c)
 	})
-}
+} // <- eksik olan kapanış süslü parantez eklendi

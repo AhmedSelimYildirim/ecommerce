@@ -4,37 +4,38 @@ import (
 	"database/sql"
 )
 
+// OrderRepository arayüzü
 type OrderRepository interface {
 	Create(userID int, productIDs []int) error
 	GetByUserID(userID int) ([]Order, error)
 }
 
-type orderRepo struct {
+// Order struct
+type Order struct {
+	ID     int
+	UserID int
+	Total  float64
+	Status string
+}
+
+// OrderRepo struct
+type OrderRepo struct {
 	db *sql.DB
 }
 
-func NewOrderRepo(db *sql.DB) OrderRepository {
-	return &orderRepo{db: db}
-}
-
-// Order modeli
-type Order struct {
-	ID        int
-	UserID    int
-	Total     float64
-	Status    string
-	CreatedAt string
-	UpdatedAt string
+// NewOrderRepo DB ile bağlantı
+func NewOrderRepo(db *sql.DB) *OrderRepo {
+	return &OrderRepo{db: db}
 }
 
 // Create yeni sipariş ekler
-func (r *orderRepo) Create(userID int, productIDs []int) error {
-	// TODO: implement
+func (r *OrderRepo) Create(userID int, productIDs []int) error {
+	// TODO: implement DB insert logic
 	return nil
 }
 
 // GetByUserID kullanıcıya ait siparişleri döner
-func (r *orderRepo) GetByUserID(userID int) ([]Order, error) {
-	// TODO: implement
-	return nil, nil
+func (r *OrderRepo) GetByUserID(userID int) ([]Order, error) {
+	// TODO: implement DB select logic
+	return []Order{}, nil
 }
